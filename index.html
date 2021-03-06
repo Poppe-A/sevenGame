@@ -5,23 +5,23 @@
   <title>Seven Game</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
-  <script src="script.js"></script>
 </head>
 <body>
   <div id="mainWindow">
     <h1>Seven Game</h1>
     <section id="rules">
       <h2>Rules :</h2>
-      <p> - A player can throw as many dices as he wants, until he decides to stop, or he throws a 7</p>
-      <p> - If a player throw a 7, his score is reset to 0</p>
+      <p> - A player can throw the dices as many times as he wants, until he decides to stop</p>
+      <p> - If the player throws a 7, his turn stops and his score is reset to 0</p>
       <p> - In the end of the game, after 4 turns, the player with the highest score win</p>
+      <p> - The dices images are not the real numbers, they are here to decorate </p>
     </section>
 
     <hr>
 
     <div class="playersContainer">
       <div class="player" id="PLAYER1">
-        <span>Player 1</span>
+        <span class="firstPlayerName">Player 1</span>
           <div class="buttonContainer">
             <button id="throw1">Roll dices</button>
             <button id="stop1">End turn</button>
@@ -32,7 +32,7 @@
         </div>
       </div>
       <div class="player" id=PLAYER2>
-        <span>Player 2</span>
+        <span class="secondPlayerName">Player 2</span>
           <div class="buttonContainer">
             <button id="throw2">Roll dices</button>
             <button id="stop2">End turn</button>
@@ -46,7 +46,7 @@
     </div>
 
     <div id="diceBoard">
-      <img id="dicesImg" src="/noMoveDices.png"/>
+      <img id="dicesImg" src="noMoveDices.png"/>
     </div>
     <div id="result">
       <span class="good" id="resultText"> </span>
@@ -55,13 +55,14 @@
    <hr>
 
     <div id="score">
-        <span>Player 1 score : </span>
+        <span class="firstPlayerName">Player 1</span><span>'s score : </span>
         <span id="scorePLAYER1">0</span>
         <br>
-        <span>Player 2 score : </span>
+        <span class="secondPlayerName">Player 2</span><span>'s score : </span>
         <span id="scorePLAYER2">0</span>
     </div>
   </div>
+  <script src="script.js"></script>
  
 </body>
 </html>

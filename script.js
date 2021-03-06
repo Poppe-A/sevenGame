@@ -2,18 +2,18 @@
 
 let actualPlayer = null;
 
-const tempScore = {
-    "PLAYER1":0,
-    "PLAYER2":0
-}
+let tempScore = 0;
 
 const totalScore = {
     "PLAYER1":0,
     "PLAYER2":0 
 }
 
+let player1Name = "";
+let player2Name = "";
 let turnNumber = 0;
 
+//dontPlay is used to avoid clicking on button while dices are rolling
 let dontPlay = false;
 
 onload = () => {
@@ -25,6 +25,14 @@ function init() {
     document.getElementById("throw2").addEventListener("click", () => rollDices("PLAYER2"));
     document.getElementById("stop1").addEventListener("click", () => endTurn("PLAYER1"));
     document.getElementById("stop2").addEventListener("click", () => endTurn("PLAYER2"));
+    player1Name = prompt("Enter first player name :");
+    player2Name = prompt("Enter second player name :");
+    Array.from(document.getElementsByClassName("firstPlayerName")).forEach(elm => {
+        elm.innerText = player1Name || "Player 1";
+    });
+    Array.from(document.getElementsByClassName("secondPlayerName")).forEach(elm => {
+        elm.innerText = player2Name || "Player 2";
+    });
     startTurn();
 }
 
@@ -39,6 +47,7 @@ function startTurn() {
         document.getElementById("turnScore" + player).innerText = 0;
     }
 
+    //change player
     switch (player) {
         case 'PLAYER1':
             actualPlayer = 'PLAYER2';
@@ -56,14 +65,14 @@ function endTurn(playerButtonPushed) {
     var player = getActualPlayer();
 
     if(playerButtonPushed === player && !dontPlay) {
-        totalScore[player] = totalScore[player] + tempScore[player];
+        totalScore[player] = totalScore[player] + tempScore;
         document.getElementById("score" + player).innerText = totalScore[player];
-        tempScore[player] = 0;
+        tempScore = 0;
         //increment turn counter
         if (player === "PLAYER2") {
             turnNumber++;
         }
-        if(turnNumber < 2) {
+        if(turnNumber < 4) {
             startTurn();
         } else {
             endGame();
@@ -74,11 +83,11 @@ function endTurn(playerButtonPushed) {
 
 function setScore(player, score) {
         if(score !== 7) {
-            tempScore[player] = tempScore[player] + score;
-            document.getElementById("turnScore" + player).innerText = tempScore[player];
+            tempScore = tempScore + score;
+            document.getElementById("turnScore" + player).innerText = tempScore;
         }
         else {
-                tempScore[player] = 0;
+                tempScore = 0;
                 totalScore[player] = 0;
                 endTurn(player);
         }
@@ -113,7 +122,7 @@ function getActualPlayer() {
     return actualPlayer;
 }
 
-function rollhDices(playerButton) {
+function rollDices(playerButton) {
     var player = getActualPlayer();
     let dicesImg = document.getElementById("dicesImg");
     let resultText = document.getElementById("resultText");
@@ -124,10 +133,10 @@ function rollhDices(playerButton) {
         let score = Math.floor(Math.random() * Math.floor(11)) + 2;
 
         //use gif while rolling the dices, then stop it and display the result
-        dicesImg.src = "/rollingDices.gif";
+        dicesImg.src = "rollingDices.gif";
         dontPlay = true;
         setTimeout(() => {
-            dicesImg.src = "/noMoveDices.png";
+            dicesImg.src = "noMoveDices.png";
             resultText.innerText = "You had a " + score + (score === 7 ? " ..." : " !");
             
             if(score === 7) {
